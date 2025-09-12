@@ -1,0 +1,4 @@
+fn main(): u32 {
+	let ret: u32 = 2;
+	return ret;
+}
