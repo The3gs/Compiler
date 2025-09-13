@@ -72,7 +72,6 @@ pub fn check_expression(
     env: &HashMap<&String, ast::Type>,
 ) -> Result<(), Error> {
     match expression {
-        ast::Expression::Block(_, _) => todo!("Implement blocks"),
         ast::Expression::Call(function, expressions) => match env.get(function) {
             Some(ast::Type::Fun(arg_types, return_type)) => {
                 for (expression, arg_type) in expressions.iter().zip(arg_types) {

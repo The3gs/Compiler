@@ -25,7 +25,6 @@ pub enum Statement {
 
 #[derive(Debug, Clone)]
 pub enum Expression {
-    Block(String, Vec<Statement>),
     Call(String, Vec<Expression>),
     Variable(String),
     Add(Box<Expression>, Box<Expression>),

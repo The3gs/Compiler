@@ -90,9 +90,9 @@ impl VirtualMachine {
 
     pub fn run(&mut self) -> u32 {
         while self.function_id != u32::MAX {
-            // println!("stack: {:?}", self.stack);
-            // println!("function: {}", self.function_id);
-            // println!("pc: {}", self.program_counter);
+            println!("stack: {:?}", self.stack);
+            println!("function: {}", self.function_id);
+            println!("pc: {}", self.program_counter);
             match &self.functions[self.function_id as usize].implementation {
                 FunctionData::Builtin(f) => {
                     println!(
@@ -104,7 +104,7 @@ impl VirtualMachine {
                     self.program_counter = self.stack.pop().unwrap();
                 }
                 FunctionData::Code(operations) => {
-                    // println!("op: {:?}", operations[self.program_counter as usize]);
+                    println!("op: {:?}", operations[self.program_counter as usize]);
                     use Operation::*;
                     match operations[self.program_counter as usize] {
                         Push(n) => self.stack.push(n),
@@ -136,14 +136,14 @@ impl VirtualMachine {
                             self.stack.push(self.program_counter);
                             self.stack.push(self.function_id);
                             self.function_id = function_id;
-                            self.program_counter = 0;
+                            self.program_counter = u32::MAX;
                         }
                         CallFnPointer => {
                             let function_id = self.stack.pop().unwrap();
                             self.stack.push(self.program_counter);
                             self.stack.push(self.function_id);
                             self.function_id = function_id;
-                            self.program_counter = 0;
+                            self.program_counter = u32::MAX;
                         }
                         Return => {
                             self.function_id = self.stack.pop().unwrap();
